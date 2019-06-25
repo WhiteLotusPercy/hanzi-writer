@@ -5,6 +5,7 @@
 		<title>学写字</title>
 		<!-- <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'> -->
 		<link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="styles-extra.css" />
 		<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     </head>
 	<body>

@@ -50,6 +50,9 @@ function renderFanningStrokes(target, strokes) {
         path.setAttributeNS(null, 'd', strokePath);
         // style the character paths
         path.style.fill = '#555';
+        if (idx === array.length - 1) {
+            path.style.fill = '#777';
+        }
         group.appendChild(path);
     });
 }
