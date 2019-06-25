@@ -26,17 +26,80 @@ function updateCharacter() {
     RenderStoke(character);
 }
 
+function addMiGrid(svg, width, height)
+{
+    //add grid method two:
+    var newLine1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    newLine1.setAttribute('id', 'line1');
+    newLine1.setAttribute('x1', '0');
+    newLine1.setAttribute('y1', '0');
+    newLine1.setAttribute('x2', width);
+    newLine1.setAttribute('y2', height);
+    newLine1.setAttribute("stroke-dasharray", "3,3");
+    newLine1.setAttribute("stroke", "#DDD")
+    svg.append(newLine1);
+
+    var newLine2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    newLine2.setAttribute('id', 'line2');
+    newLine2.setAttribute('x1', width);
+    newLine2.setAttribute('y1', '0');
+    newLine2.setAttribute('x2', '0');
+    newLine2.setAttribute('y2', height);
+    newLine2.setAttribute("stroke-dasharray", "3,3");
+    newLine2.setAttribute("stroke", "#DDD")
+    svg.append(newLine2);
+
+    var newLine3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    newLine3.setAttribute('id', 'line3');
+    newLine3.setAttribute('x1', width/2);
+    newLine3.setAttribute('y1', '0');
+    newLine3.setAttribute('x2', width/2);
+    newLine3.setAttribute('y2', height);
+    newLine3.setAttribute("stroke", "#DDD");
+    newLine3.setAttribute("stroke-dasharray", "3,3");
+    svg.append(newLine3);
+
+    var newLine4 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    newLine4.setAttribute('id', 'line4');
+    newLine4.setAttribute('x1', '0');
+    newLine4.setAttribute('y1', height/2);
+    newLine4.setAttribute('x2', width);
+    newLine4.setAttribute('y2', height/2);
+    newLine4.setAttribute("stroke-dasharray", "3,3");
+    newLine4.setAttribute("stroke", "#DDD")
+    svg.append(newLine4);
+}
+
+function addGrid(svg, type, width, height)
+{
+    switch (type)
+    {
+        case "Mi":
+        default:
+        addMiGrid(svg, width, height);
+    }
+}
+
 
 function renderFanningStrokes(target, strokes) {
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     width = 75;
     height = 75;
+    margin = 4;
     svg.style.width = width + 'px';
     svg.style.height = height + 'px';
     svg.style.border = '1px solid #EEE'
-    svg.style.marginTop = '3px'
-    svg.style.marginLeft = '3px'
-    svg.style.marginRight = '3px'
+    svg.style.marginTop = margin + 'px'
+    svg.style.marginLeft = margin + 'px'
+    svg.style.marginRight = '0px'
+     svg.style.marginBottom = '0px'
+
+    //add grid - method one:
+    //svg.setAttribute('class', 'small');
+
+    //add grid - method two: render via svg
+    addGrid(svg, 'Mi', width, height);
+
     target.appendChild(svg);
     var group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
