@@ -5,7 +5,9 @@
 #target-main {
     background: white;
     clear: both;
+    /*
     border: 1px solid #BBB !important;
+    */
     width: 400px;
     margin: 0 auto;
     text-align: left;
@@ -14,7 +16,7 @@
 #target-stroke {
     background: white;
     clear: both;
-    border: 1px solid #BBB !important;
+    /*noborder: 1px solid #BBB !important;*/
     width: 400px;
     margin: 0 auto;
     text-align: left;

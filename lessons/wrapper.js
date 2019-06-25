@@ -2,7 +2,7 @@ var writer;
 var isCharVisible;
 var isOutlineVisible;
 
-var grid_type = "Tian"; // [ "Mi", "Tian" ] ; might support ["9x9", "Hui"] if required;
+var grid_type = "Mi"; // [ "Mi", "Tian" ] ; might support ["9x9", "Hui"] if required;
 
 function printStrokePoints(data) {
     var pointStrs = data.drawnPath.points.map(point => `{x: ${point.x}, y: ${point.y}}`);
@@ -30,12 +30,12 @@ function updateCharacter() {
     var target = document.getElementById('target');
     width = 400;
     height = 400;
-    addGrid(target, width, height);
+    addGrid(target, width, height,2.5);
 
     RenderStoke(character);
 }
 
-function addMiGrid(svg, width, height)
+function addMiGrid(svg, width, height, thickness=2)
 {
     var newLine1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     newLine1.setAttribute('id', 'line1');
@@ -43,8 +43,9 @@ function addMiGrid(svg, width, height)
     newLine1.setAttribute('y1', '0');
     newLine1.setAttribute('x2', width);
     newLine1.setAttribute('y2', height);
+    newLine1.setAttribute("stroke", "#DDD");
+    newLine1.setAttribute("stroke-width", thickness);
     newLine1.setAttribute("stroke-dasharray", "3,3");
-    newLine1.setAttribute("stroke", "#DDD")
     svg.append(newLine1);
 
     var newLine2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -53,8 +54,9 @@ function addMiGrid(svg, width, height)
     newLine2.setAttribute('y1', '0');
     newLine2.setAttribute('x2', '0');
     newLine2.setAttribute('y2', height);
+    newLine2.setAttribute("stroke", "#DDD");
+    newLine2.setAttribute("stroke-width", thickness );
     newLine2.setAttribute("stroke-dasharray", "3,3");
-    newLine2.setAttribute("stroke", "#DDD")
     svg.append(newLine2);
 
     var newLine3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -64,6 +66,7 @@ function addMiGrid(svg, width, height)
     newLine3.setAttribute('x2', width/2);
     newLine3.setAttribute('y2', height);
     newLine3.setAttribute("stroke", "#DDD");
+    newLine3.setAttribute("stroke-width", thickness);
     newLine3.setAttribute("stroke-dasharray", "3,3");
     svg.append(newLine3);
 
@@ -73,12 +76,13 @@ function addMiGrid(svg, width, height)
     newLine4.setAttribute('y1', height/2);
     newLine4.setAttribute('x2', width);
     newLine4.setAttribute('y2', height/2);
+    newLine4.setAttribute("stroke", "#DDD");
+    newLine4.setAttribute("stroke-width", thickness);
     newLine4.setAttribute("stroke-dasharray", "3,3");
-    newLine4.setAttribute("stroke", "#DDD")
     svg.append(newLine4);
 }
 
-function addTianGrid(svg, width, height) {
+function addTianGrid(svg, width, height, thickness) {
     var newLine3 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     newLine3.setAttribute('id', 'line3');
     newLine3.setAttribute('x1', width / 2);
@@ -86,6 +90,7 @@ function addTianGrid(svg, width, height) {
     newLine3.setAttribute('x2', width / 2);
     newLine3.setAttribute('y2', height);
     newLine3.setAttribute("stroke", "#DDD");
+    newLine3.setAttribute("stroke-width", thickness);
     newLine3.setAttribute("stroke-dasharray", "3,3");
     svg.append(newLine3);
 
@@ -95,20 +100,21 @@ function addTianGrid(svg, width, height) {
     newLine4.setAttribute('y1', height / 2);
     newLine4.setAttribute('x2', width);
     newLine4.setAttribute('y2', height / 2);
+    newLine4.setAttribute("stroke", "#DDD");
+    newLine4.setAttribute("stroke-width", thickness);
     newLine4.setAttribute("stroke-dasharray", "3,3");
-    newLine4.setAttribute("stroke", "#DDD")
     svg.append(newLine4);
 }
 
-function addGrid(svg, width, height)
+function addGrid(svg, width, height, thickness)
 {
     switch (grid_type)
     {
         case "Mi":
-            addMiGrid(svg, width, height);
+            addMiGrid(svg, width, height, thickness);
             break;
         case "Tian":
-            addTianGrid(svg, width, height);
+            addTianGrid(svg, width, height, thickness);
             break;
         default:
             //blank;
@@ -133,7 +139,7 @@ function renderFanningStrokes(target, strokes) {
     //svg.setAttribute('class', 'small');
 
     //add grid - method two: render via svg
-    addGrid(svg, width, height);
+    addGrid(svg, width, height, 1);
 
     target.appendChild(svg);
     var group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
