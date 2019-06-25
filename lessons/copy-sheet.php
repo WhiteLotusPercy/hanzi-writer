@@ -11,11 +11,8 @@
 	<body>
 		<h1 class="title">学写字</h1>
 		<form class="js-char-form char-form">
-			<label>
-				<textarea class="js-char char-input" rows="4" cols="18">
-                    仁义礼信智
+				<textarea class="js-char chars-input" rows="4" cols="50">
                 </textarea>
-			</label>
 			<button type="submit">更新</button>
         </form>
 

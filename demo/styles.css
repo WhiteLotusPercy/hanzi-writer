@@ -52,6 +52,13 @@ button, #target {
 	vertical-align: top;
 }
 
+.chars-input {
+    font-size: 18px;
+    padding: 5px;
+    width: 300px;
+    text-align: left;
+}
+
 .char-input {
 	font-size: 16px;
 	padding: 5px;

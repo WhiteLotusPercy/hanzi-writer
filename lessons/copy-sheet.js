@@ -17,7 +17,7 @@ function updateSheet() {
     isOutlineVisible = true;
     window.writer = writer;
 
-    characters = '星';
+    //characters = '星';
     RenderSheet(characters);
 }
 
@@ -48,6 +48,18 @@ function renderFanningStrokesEx(target, strokes, upto, size = 75, mode = 'defaul
     var transformData = HanziWriter.getScalingTransform(width, height);
     group.setAttributeNS(null, 'transform', transformData.transform);
     svg.appendChild(group);
+
+    if (upto == 0)
+    {
+         strokes.forEach(function (strokePath, idx, array) {
+             var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+             path.setAttributeNS(null, 'd', strokePath);
+             // style the character paths
+             path.style.fill = '#555';
+             group.appendChild(path);
+         });
+        return;
+    }
 
     //write once in light color
     strokes.forEach(function (strokePath, idx, array) {
@@ -86,44 +98,34 @@ function RenderSheet(characters) {
     document.querySelector('#target-sheet').innerHTML = '';
 
     //loop over the chars array;
-    character = '我';
-    character = '曦';
-        character = '仁';
-    var writer = HanziWriter.create('target-sheet', character, {
-        width: size,
-        height: size,
-        padding: 5,
-    });
+    character = '仁';
+    var charsArray = characters.split('');
 
-    /**
-     * show the remanining stroke in lighter color
-     */
-    HanziWriter.loadCharacterData(character).then(function (charData) {
-        var target = document.getElementById('target-sheet');
-        var length = Math.min(charData.strokes.length, num_of_chars_per_row - 1);
-        var strokesPortion = charData.strokes.slice(0, length);
+    for (n = 0; n < charsArray.length; n++)
+    {
+        character = charsArray[n];
 
-        for (var i = 0; i < length; i++) {
-             renderFanningStrokesEx(target, strokesPortion, i + 1, size);
-        }
+        /**
+         * show the remanining stroke in lighter color
+         */
+        HanziWriter.loadCharacterData(character).then(function (charData) {
+            var target = document.getElementById('target-sheet');
 
-        for (var i = length; i < num_of_chars_per_row - 1; i++) {
-             renderFanningStrokesEx(target, strokesPortion, -1, size);
-        }
-    });
-    /*
-    var char1 = HanziWriter.create('target-sheet', '很', {
-        width: 100,
-        height: 100,
-        padding: 5,
-        showCharacter: false
-    });
-    var char2 = HanziWriter.create('target-sheet', '爽', {
-        width: 100,
-        height: 100,
-        padding: 5,
-        showCharacter: false
-    });*/
+            var length = charData.strokes.length;
+            var strokesPortion = charData.strokes.slice(0, length);
+            renderFanningStrokesEx(target, strokesPortion, 0, size);
+
+            length = Math.min(charData.strokes.length, num_of_chars_per_row - 1);
+            strokesPortion = charData.strokes.slice(0, length);
+            for (var i = 0; i < length; i++) {
+                renderFanningStrokesEx(target, strokesPortion, i + 1, size);
+            }
+
+            for (var i = length; i < num_of_chars_per_row - 1; i++) {
+                renderFanningStrokesEx(target, strokesPortion, -1, size);
+            }
+        });
+    }
 
 }
 
