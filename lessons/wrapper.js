@@ -2,7 +2,7 @@ var writer;
 var isCharVisible;
 var isOutlineVisible;
 
-var grid_type = "Mi"; // [ "Mi", "Tian" ] ; might support ["9x9", "Hui"] if required;
+var grid_type = "Tian"; // [ "Mi", "Tian" ] ; might support ["9x9", "Hui"] if required;
 
 function printStrokePoints(data) {
     var pointStrs = data.drawnPath.points.map(point => `{x: ${point.x}, y: ${point.y}}`);
@@ -17,7 +17,8 @@ function updateCharacter() {
     writer = HanziWriter.create('target', character, {
         width: 400,
         height: 400,
-        renderer: 'canvas',
+        /* i don't know how to add grid for canvs, so use svg*/
+        //renderer: 'canvas',
         radicalColor: '#166E16',
         onCorrectStroke: printStrokePoints,
         onMistake: printStrokePoints,
@@ -25,6 +26,12 @@ function updateCharacter() {
     isCharVisible = true;
     isOutlineVisible = true;
     window.writer = writer;
+
+    var target = document.getElementById('target');
+    width = 400;
+    height = 400;
+    addGrid(target, width, height);
+
     RenderStoke(character);
 }
 
@@ -190,6 +197,7 @@ window.onload = function () {
     document.querySelector('.js-animate').addEventListener('click', function () {
         event.preventDefault()
         writer.animateCharacter();
+
     });
     document.querySelector('.js-quiz').addEventListener('click', function () {
         event.preventDefault()
@@ -199,7 +207,7 @@ window.onload = function () {
     });
 
     //add Handler to control the grid type;
-    grid_type = 'Mi';
+    //grid_type = get value from select control;
 
     //when load the page, immediately write the character
     writer.animateCharacter();

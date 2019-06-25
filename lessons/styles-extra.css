@@ -1,7 +1,14 @@
-
-
 #target {
-	border: 1px solid #BBB !important;
+    border: 1px solid #BBB !important;
+}
+
+#target-main {
+    background: white;
+    clear: both;
+    border: 1px solid #BBB !important;
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
 }
 
 #target-stroke {
@@ -10,5 +17,5 @@
     border: 1px solid #BBB !important;
     width: 400px;
     margin: 0 auto;
-    text-align:left;
+    text-align: left;
 }

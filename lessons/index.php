@@ -24,14 +24,14 @@
             <div class="js-animate"></div>
 		</div>
 
-		<div id="target">
-
+        <div id="target-main">
+            <svg id="target">
+            </svg>
         </div>
 
+
         <br>
-
         <div id="target-stroke">
-
         </div>
 
 		<!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
