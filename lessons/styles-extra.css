@@ -22,6 +22,16 @@
     text-align: left;
 }
 
+#target-sheet {
+    background: white;
+    clear: both;
+    /*noborder: 1px solid #BBB !important;*/
+    /* a4 sheet width ? */
+    width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
 /* no use, just give example for using image a background grid */
 .small {
     width: 74px;

@@ -9,34 +9,22 @@
 		<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
     </head>
 	<body>
-
 		<h1 class="title">学写字</h1>
 		<form class="js-char-form char-form">
 			<label>
-				<input type="text" class="js-char char-input" size="1" maxlength="1" value="仁" />
+				<textarea class="js-char char-input" rows="4" cols="18">
+                    仁义礼信智
+                </textarea>
 			</label>
 			<button type="submit">更新</button>
-			<button class="js-quiz">试写</button>
-		</form>
-		<div class="actions">
-            <div class="js-toggle"></div>
-			<div class="js-toggle-hint"></div>
-            <div class="js-animate"></div>
-		</div>
+        </form>
 
-        <div id="target-main">
-            <svg id="target">
-            </svg>
-        </div>
-
-
-        <br>
-        <div id="target-stroke">
+        <div id="target-sheet">
         </div>
 
 		<!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
 		<script type="application/javascript" src="../dist/hanzi-writer.js"></script>
 		<script type="application/javascript" src="wrapper.js"></script>
-        <script type="application/javascript" src="single.js"></script>
+        <script type="application/javascript" src="copy-sheet.js"></script>
 	</body>
 </html>
