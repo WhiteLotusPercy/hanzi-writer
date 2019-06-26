@@ -3,9 +3,25 @@ var isCharVisible;
 var isOutlineVisible;
 
 var grid_type = "Mi"; // [ "Mi", "Tian" ] ; might support ["9x9", "Hui"] if required;
-
-
+var num_of_chars_per_row = 10;
 var size = 75;
+
+/**
+ * a simple hash function:
+ * https: //stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript/22429679
+ */
+String.prototype.hashCode = function () {
+    var hash = 0,
+        i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+};
+
 
 function updateSheet() {
     document.querySelector('#target-sheet').innerHTML = '';
@@ -17,10 +33,8 @@ function updateSheet() {
     isOutlineVisible = true;
     window.writer = writer;
 
-    //characters = '星';
     RenderSheet(characters);
 }
-
 
 function renderFanningStrokesEx(target, strokes, upto, size = 75, mode = 'default') {
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -49,15 +63,14 @@ function renderFanningStrokesEx(target, strokes, upto, size = 75, mode = 'defaul
     group.setAttributeNS(null, 'transform', transformData.transform);
     svg.appendChild(group);
 
-    if (upto == 0)
-    {
-         strokes.forEach(function (strokePath, idx, array) {
-             var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-             path.setAttributeNS(null, 'd', strokePath);
-             // style the character paths
-             path.style.fill = '#555';
-             group.appendChild(path);
-         });
+    if (upto == 0) {
+        strokes.forEach(function (strokePath, idx, array) {
+            var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttributeNS(null, 'd', strokePath);
+            // style the character paths
+            path.style.fill = '#555';
+            group.appendChild(path);
+        });
         return;
     }
 
@@ -83,50 +96,69 @@ function renderFanningStrokesEx(target, strokes, upto, size = 75, mode = 'defaul
         if (idx >= upto) {
             return;
         } else if (idx === array.length - 1) {
-                path.style.fill = '#bbb';
+            path.style.fill = '#bbb';
         }
         group.appendChild(path);
     });
 }
 
-var num_of_chars_per_row = 10;
+function RenderRowCore(character, charData) {
+
+    //get the target-row by the hash-id
+    id = character.hashCode();
+    target = document.getElementById(id);
+
+    var length = charData.strokes.length;
+    var strokesPortion = charData.strokes.slice(0, length);
+    renderFanningStrokesEx(target, strokesPortion, 0, size);
+
+    length = Math.min(charData.strokes.length, num_of_chars_per_row - 1);
+    strokesPortion = charData.strokes.slice(0, length);
+    for (var i = 0; i < length; i++) {
+        renderFanningStrokesEx(target, strokesPortion, i + 1, size);
+    }
+
+    /**
+     * show the remanining stroke in lighter color
+     */
+    for (var i = length; i < num_of_chars_per_row - 1; i++) {
+        renderFanningStrokesEx(target, strokesPortion, -1, size);
+    }
+}
+
+function RenderRow(character) {
+    //pass the character to the Core function
+    HanziWriter.loadCharacterData(character).then(function (charData) {
+        RenderRowCore(character, charData);
+    });
+}
 
 /**
  * render the stroke according to example in https://chanind.github.io/hanzi-writer/docs.html
  */
 function RenderSheet(characters) {
-    document.querySelector('#target-sheet').innerHTML = '';
+
+    target = document.getElementById('target-sheet');
 
     //loop over the chars array;
-    character = '仁';
     var charsArray = characters.split('');
-
-    for (n = 0; n < charsArray.length; n++)
-    {
+    rows = [];
+    for (n = 0; n < charsArray.length; n++) {
         character = charsArray[n];
 
-        /**
-         * show the remanining stroke in lighter color
-         */
-        HanziWriter.loadCharacterData(character).then(function (charData) {
-            var target = document.getElementById('target-sheet');
+        //current new
+        newrow = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+        id = character.hashCode();
+        newrow.setAttribute("id", id);
 
-            var length = charData.strokes.length;
-            var strokesPortion = charData.strokes.slice(0, length);
-            renderFanningStrokesEx(target, strokesPortion, 0, size);
+        /*
+        txtnode = document.createTextNode(character);
+        newrow.appendChild(txtnode);
+        */
+        target.appendChild(newrow);
 
-            length = Math.min(charData.strokes.length, num_of_chars_per_row - 1);
-            strokesPortion = charData.strokes.slice(0, length);
-            for (var i = 0; i < length; i++) {
-                renderFanningStrokesEx(target, strokesPortion, i + 1, size);
-            }
-
-            for (var i = length; i < num_of_chars_per_row - 1; i++) {
-                renderFanningStrokesEx(target, strokesPortion, -1, size);
-            }
-        });
+        RenderRow(character);
     }
-
 }
 
 window.onload = function () {
@@ -141,7 +173,6 @@ window.onload = function () {
         evt.preventDefault();
         updateSheet();
     });
-
 
     //add Handler to control the grid type;
     //grid_type = get value from select control;
