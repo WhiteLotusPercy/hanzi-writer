@@ -14,6 +14,7 @@
 				<textarea class="js-char chars-input" rows="4" cols="50">
                 </textarea>
 			<button type="submit">更新</button>
+            <button class="js-print">打印</button>
         </form>
 
         <div id="target-sheet">
@@ -23,5 +24,6 @@
 		<script type="application/javascript" src="../dist/hanzi-writer.js"></script>
 		<script type="application/javascript" src="wrapper.js"></script>
         <script type="application/javascript" src="copy-sheet.js"></script>
+        <script type="application/javascript" src="printing.js"></script>
 	</body>
 </html>

@@ -174,6 +174,21 @@ window.onload = function () {
         updateSheet();
     });
 
+    document.querySelector('.js-print').addEventListener('click', function () {
+        event.preventDefault()
+         target = document.getElementById('target-sheet');
+        PrintElem('target-sheet');
+    });
+
+    /*
+    document.querySelector(".js-print").addEventListener("click", function () {
+        var printContents = document.getElementById('target-sheet').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    });
+    */
     //add Handler to control the grid type;
     //grid_type = get value from select control;
 
