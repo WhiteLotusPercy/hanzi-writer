@@ -68,7 +68,7 @@ function renderFanningStrokesEx(target, strokes, upto, size = 75, mode = 'defaul
             var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             path.setAttributeNS(null, 'd', strokePath);
             // style the character paths
-            path.style.fill = '#555';
+            path.style.fill = '#aaa';
             group.appendChild(path);
         });
         return;
@@ -79,7 +79,7 @@ function renderFanningStrokesEx(target, strokes, upto, size = 75, mode = 'defaul
         var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttributeNS(null, 'd', strokePath);
         // style the character paths
-        path.style.fill = '#efefef';
+        path.style.fill = '#ffefef';
         group.appendChild(path);
     });
 
@@ -91,12 +91,12 @@ function renderFanningStrokesEx(target, strokes, upto, size = 75, mode = 'defaul
         var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttributeNS(null, 'd', strokePath);
         // style the character paths
-        path.style.fill = '#aaa';
+        path.style.fill = '#dfdfdf';
 
         if (idx >= upto) {
             return;
         } else if (idx === array.length - 1) {
-            path.style.fill = '#bbb';
+            path.style.fill = '#eee';
         }
         group.appendChild(path);
     });
