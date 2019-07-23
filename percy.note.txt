@@ -1,0 +1,13 @@
+https://github.com/chanind/hanzi-writer-data
+
+
+example apps:
+https://play.google.com/store/apps/details?id=com.patgdut.chinesestrokesorder&hl=en_US
+
+https://github.com/chanind/hanzi-writer
+
+
+ref
+:
+https://github.com/sotch-pr35mac/syng
+
