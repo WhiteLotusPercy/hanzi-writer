@@ -1,3 +1,7 @@
+<?php
+$chinese_char = (isset($_GET['char']) ? $_GET['char'] : '仁' ) ;
+?>
+
 <!DOCTYPE html>
 <html lang="en-us">
 	<head>
@@ -35,7 +39,7 @@
         </div>
 
 		<!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
-		<script type="application/javascript" src="../dist/hanzi-writer.js"></script>
+		<script type="application/javascript" src="../js/hanzi-writer.js"></script>
 		<script type="application/javascript" src="wrapper.js"></script>
         <script type="application/javascript" src="single.js"></script>
 	</body>

@@ -21,7 +21,7 @@
         </div>
 
 		<!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script> -->
-		<script type="application/javascript" src="../dist/hanzi-writer.js"></script>
+		<script type="application/javascript" src="../js/hanzi-writer.js"></script>
 		<script type="application/javascript" src="wrapper.js"></script>
         <script type="application/javascript" src="copy-sheet.js"></script>
         <script type="application/javascript" src="printing.js"></script>

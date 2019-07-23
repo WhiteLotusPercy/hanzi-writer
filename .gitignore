@@ -6,5 +6,5 @@ coverage
 .sass-cache
 .vscode
 cdn
-#dist
+dist
 _site
